@@ -39,7 +39,7 @@ bot.start(() => {
         console.log("Bot started");
     },
     (errStatus) => {
-        console.error("Bot not started. " + errStatus);
+        console.error('It seems the TELEGRAM_TOKEN is wrong! Please fix it.')
     });
 
 
