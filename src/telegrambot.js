@@ -95,7 +95,7 @@ module.exports = class TelegramBot {
 
             let messageText = msg.text;
 
-            console.log(this._botConfig.apiaiAgentId, chatId, messageText);
+            console.log(chatId, messageText);
 
             if (chatId && messageText) {
                 if (!this._sessionIds.has(chatId)) {
