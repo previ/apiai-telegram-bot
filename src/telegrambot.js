@@ -114,7 +114,7 @@ module.exports = class TelegramBot {
 
                         if (TelegramBot.isDefined(responseData) && TelegramBot.isDefined(responseData.telegram)) {
 
-                            this.log('Response as formatted message');
+                            console.log('Response as formatted message');
 
                             let telegramMessage = responseData.telegram;
                             telegramMessage.chat_id = chatId;
