@@ -7,15 +7,15 @@
   "env": {
     "APP_NAME": {
       "description": "flavio bot",
-      "value": "flaviobot"
+      "value": ""
     },
     "TELEGRAM_TOKEN": {
       "description": "telegram token",
-      "value": "393985719:AAGztD7L0lianjPokVwyFLQD9U6MjbvEDIA"
+      "value": ""
     },
     "APIAI_ACCESS_TOKEN": {
       "description": "api.ai client token",
-      "value": "5fa39979f5504a76b10ad0c892c77e2b"
+      "value": ""
     },
     "APIAI_LANG": {
       "description": "Agent language",
