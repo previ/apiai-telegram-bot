@@ -6,8 +6,8 @@
   "keywords": ["api.ai", "telegram", "natural language"],
   "env": {
     "APP_NAME": {
-      "description": "flaviobot",
-      "value": ""
+      "description": "flavio bot",
+      "value": "flaviobot"
     },
     "TELEGRAM_TOKEN": {
       "description": "393985719:AAGztD7L0lianjPokVwyFLQD9U6MjbvEDIA",
