@@ -96,6 +96,8 @@ module.exports = class TelegramBot {
             let messageText = msg.text;
 
             console.log(chatId, messageText);
+            
+            let messageText = messageText.replace(/\//g, '');
 
             if (chatId && messageText) {
                 if (!this._sessionIds.has(chatId)) {
