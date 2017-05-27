@@ -6,20 +6,20 @@
   "keywords": ["api.ai", "telegram", "natural language"],
   "env": {
     "APP_NAME": {
-      "description": "Copy App Name here",
+      "description": "flaviobot",
       "value": ""
     },
     "TELEGRAM_TOKEN": {
-      "description": "Telegram bot token",
+      "description": "393985719:AAGztD7L0lianjPokVwyFLQD9U6MjbvEDIA,
       "value": ""
     },
     "APIAI_ACCESS_TOKEN": {
-      "description": "Client access token for Api.ai",
+      "description": "5fa39979f5504a76b10ad0c892c77e2b",
       "value": ""
     },
     "APIAI_LANG": {
       "description": "Agent language",
-      "value": "en",
+      "value": "it",
       "required": false
     }
   },
