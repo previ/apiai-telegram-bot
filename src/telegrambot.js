@@ -112,8 +112,7 @@ module.exports = class TelegramBot {
                         let responseText = response.result.fulfillment.speech;
                         let responseData = response.result.fulfillment.data;
 
-                        console.log('responseText: ' + responseText);
-                        console.log('responseData: ' + responseData);
+                        console.log('response.result.fulfillment: ' + response.result.fulfillment);
 
                         if (TelegramBot.isDefined(responseData) && TelegramBot.isDefined(responseData.telegram)) {
 
