@@ -15,6 +15,7 @@
     "console-stamp": "^0.2.2",
     "express": "^4.14.0",
     "node-uuid": "^1.4.7",
-    "request": "^2.74.0"
+    "request": "^2.74.0",
+    "fb", "2.0.0" 
   }
 }
