@@ -9,7 +9,7 @@ const FB_APP_ID = process.env.FB_APP_ID;
 const FB_APP_SECRET = process.env.FB_APP_SECRET;
 const FB_PAGE_ID = process.env.FB_PAGE_ID;
 
-var fb = new FB.Facebook({"appId":FB_APP_ID, "appSecret":FB_APP_SECRET, version: 'v2.4'});
+var fb = new FB.Facebook({version: 'v2.4'});
 
 module.exports = class TelegramBot {
 
@@ -51,6 +51,19 @@ module.exports = class TelegramBot {
         console.log('Starting bot on ' + this._webhookUrl);
 
         this._telegramApiUrl = 'https://api.telegram.org/bot' + botConfig.telegramToken;
+        
+        fb.api('oauth/access_token', {
+            client_id: FB_APP_ID,
+            client_secret: FB_APP_SECRET,
+            grant_type: 'client_credentials'
+        }, function (res) {
+            if(!res || res.error) {
+                console.log(!res ? 'error occurred' : res.error);
+                return;
+            }
+
+            fb.setAccessToken(res.access_token);
+        });
     }
 
     start(responseCallback, errCallback){
