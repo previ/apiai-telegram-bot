@@ -3,6 +3,13 @@
 const apiai = require('apiai');
 const uuid = require('node-uuid');
 const request = require('request');
+const FB = require('fb');
+
+const FB_APP_ID = process.env.FB_APP_ID;
+const FB_APP_SECRET = process.env.FB_APP_SECRET;
+const FB_PAGE_ID = process.env.FB_PAGE_ID;
+
+var fb = new FB.Facebook({"appId":FB_APP_ID, "appSecret":FB_APP_SECRET});
 
 module.exports = class TelegramBot {
 
