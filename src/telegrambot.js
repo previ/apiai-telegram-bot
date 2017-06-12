@@ -228,12 +228,12 @@ module.exports = class TelegramBot {
         let action = result.action;
 
         var offset = parseInt(Math.random() * 100);
-        fb.api(FB_PAGE_ID+"/posts?limit=1&offset="+offset, function (res) {
-            if(!res || res.error) {
+        fb.api(FB_PAGE_ID+"/posts?limit=1&offset="+offset, function (fbres) {
+            if(!fbres || fbres.error) {
                 console.log(!res ? 'error occurred' : res.error);
                 return;
             }
-            let post =  res.data[0];
+            let post =  fbres.data[0];
             console.log('Post Id: ' + post.id);
             res.json({
             "speech": post.message,
