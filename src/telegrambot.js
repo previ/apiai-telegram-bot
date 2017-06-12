@@ -9,7 +9,7 @@ const FB_APP_ID = process.env.FB_APP_ID;
 const FB_APP_SECRET = process.env.FB_APP_SECRET;
 const FB_PAGE_ID = process.env.FB_PAGE_ID;
 
-var fb = new FB.Facebook({"appId":FB_APP_ID, "appSecret":FB_APP_SECRET});
+var fb = new FB.Facebook({"appId":FB_APP_ID, "appSecret":FB_APP_SECRET, version: 'v2.4'});
 
 module.exports = class TelegramBot {
 
@@ -215,7 +215,7 @@ module.exports = class TelegramBot {
         let action = result.action;
 
         var offset = parseInt(Math.random() * 100);
-        fb.api("2.9/"+FB_PAGE_ID+"/posts?limit=1&offset="+offset, function (res) {
+        fb.api(FB_PAGE_ID+"/posts?limit=1&offset="+offset, function (res) {
             if(!res || res.error) {
                 console.log(!res ? 'error occurred' : res.error);
                 return;
