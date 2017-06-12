@@ -56,6 +56,16 @@ app.post('/webhook', (req, res) => {
     }
 });
 
+app.post('/apiai_webhook', (req, res) => {
+    console.log('POST apiai_webhook');
+
+    try {
+        bot.processApiAiMessage(req, res);
+    } catch (err) {
+        return res.status(400).send('Error while processing ' + err.message);
+    }
+});
+
 app.listen(REST_PORT, function () {
     console.log('Rest service ready on port ' + REST_PORT);
 });
