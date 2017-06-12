@@ -217,7 +217,7 @@ module.exports = class TelegramBot {
         res.json({
         "speech": "this is from the facebook",
         "displayText": "this is from the facebook, long",
-        "data": {"telegram": {""}},
+        "data": {},
         "contextOut": [],
         "source": "fb"
         });
