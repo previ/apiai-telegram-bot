@@ -214,12 +214,21 @@ module.exports = class TelegramBot {
         let result = data.result;
         let action = result.action;
 
-        res.json({
-        "speech": "this is from the facebook",
-        "displayText": "this is from the facebook, long",
-        "data": {},
-        "contextOut": [],
-        "source": "fb"
+        var offset = parseInt(Math.random() * 100);
+        fb.api("2.9/"+FB_PAGE_ID+"/posts?limit=1&offset="+offset, , function (res) {
+            if(!res || res.error) {
+                console.log(!res ? 'error occurred' : res.error);
+                return;
+            }
+            let post =  res.data[0];
+            console.log('Post Id: ' + post.id); );
+            res.json({
+            "speech": post.message,
+            "displayText": post.message,
+            "data": {},
+            "contextOut": [],
+            "source": "fb"
+            });
         });
     }    
 }
