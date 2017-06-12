@@ -204,4 +204,23 @@ module.exports = class TelegramBot {
 
         return obj != null;
     }
+    
+    processApiAiMessage(req, res) {
+        if (this._botConfig.devConfig) {
+            console.log("body", req.body);
+        }
+
+        let data = req.body;
+        let result = data.result;
+        let action = result.action;
+
+        res.json({
+        "speech": "this is from the facebook",
+        "displayText": "this is from the facebook, long",
+        "data": {"telegram": {""}},
+        "contextOut": [],
+        "source": "fb"
+        });
+    }    
 }
+
