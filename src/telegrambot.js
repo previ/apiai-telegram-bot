@@ -215,7 +215,7 @@ module.exports = class TelegramBot {
         let action = result.action;
 
         var offset = parseInt(Math.random() * 100);
-        fb.api("2.9/"+FB_PAGE_ID+"/posts?limit=1&offset="+offset, , function (res) {
+        fb.api("2.9/"+FB_PAGE_ID+"/posts?limit=1&offset="+offset, function (res) {
             if(!res || res.error) {
                 console.log(!res ? 'error occurred' : res.error);
                 return;
