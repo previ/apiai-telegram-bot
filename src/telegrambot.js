@@ -221,7 +221,7 @@ module.exports = class TelegramBot {
                 return;
             }
             let post =  res.data[0];
-            console.log('Post Id: ' + post.id); );
+            console.log('Post Id: ' + post.id);
             res.json({
             "speech": post.message,
             "displayText": post.message,
