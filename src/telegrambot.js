@@ -246,29 +246,30 @@ module.exports = class TelegramBot {
             sendFBRandomPhoto(res);
         }
     }
-    sendFBRandomPost() {
+    getFBRandomPost() {
         var offset = parseInt(Math.random() * 100) + 1;
         pro = fb.api(FB_PAGE_ID+"/posts?limit=1&offset="+offset);
         return pro;
     }
-    getFBRandomPhoto(res) {
+    sendFBRandomPhoto(res) {
         var offset = parseInt(Math.random() * 2) + 1;
         album = fb.api(FB_PAGE_ID+"/albums?limit=1&offset="+offset);
         album.then(function (res) {
             var d_album = fbres.data[0];
             var offset = parseInt(Math.random() * 20) + 1;
             var photos = fb.api("/" + d_album.id + "/photos?limit=1&offset="+offset);
-                photos.then(function(res) {
+            photos.then(function(res) {
                 var d_photo = fbres.data[0];
                 var photo = fb.api("/" + d_photo.id + "/picture");
                 photo.then(function(res) {
                     var d_url = fbres.data.url;
                     res.json({
-                    "speech": d_url,
-                    "displayText":d_url,
-                    "data": { "url": d_url },
-                    "contextOut": [],
-                    "source": "fb"
+                        "speech": d_url,
+                        "displayText":d_url,
+                        "data": { "url": d_url },
+                        "contextOut": [],
+                        "source": "fb"
+                    });
                 });
             });
         });
