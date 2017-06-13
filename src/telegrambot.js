@@ -226,15 +226,14 @@ module.exports = class TelegramBot {
         let data = req.body;
         let result = data.result;
         let action = result.action;
-
-        pro = getFBRandomPost();
-        pro.then(function (fbres) {
-                    if(!fbres || fbres.error) {
-                        console.log(!res ? 'error occurred' : res.error);
-                        return;
-                    }
-                    let post =  fbres.data[0];
-                    return post;
+        if(action == "show_fb_post") {
+            pro = getFBRandomPost();
+            pro.then(function (fbres) {
+                if(!fbres || fbres.error) {
+                    console.log(!res ? 'error occurred' : res.error);
+                    return;
+                }
+                let post =  fbres.data[0];
                 res.json({
                 "speech": post.message,
                 "displayText": post.message,
@@ -242,13 +241,43 @@ module.exports = class TelegramBot {
                 "contextOut": [],
                 "source": "fb"
                 });
-        });
-            
+            });
+        } else if(action == "show_fb_photo") {
+            sendFBRandomPhoto(res);
+        }
     }
-    getFBRandomPost() {
-        var offset = parseInt(Math.random() * 100);
-        pro = fb.api(FB_PAGE_ID+"/albums?limit=1&offset="+offset);
+    sendFBRandomPost() {
+        var offset = parseInt(Math.random() * 100) + 1;
+        pro = fb.api(FB_PAGE_ID+"/posts?limit=1&offset="+offset);
         return pro;
+    }
+    getFBRandomPhoto(res) {
+        var offset = parseInt(Math.random() * 2) + 1;
+        album = fb.api(FB_PAGE_ID+"/albums?limit=1&offset="+offset);
+        album.then(function (res) {
+            var d_album = fbres.data[0];
+            var offset = parseInt(Math.random() * 20) + 1;
+            var photos = fb.api("/" + d_album.id + "/photos?limit=1&offset="+offset);
+                photos.then(function(res) {
+                var d_photo = fbres.data[0];
+                var photo = fb.api("/" + d_photo.id + "/picture");
+                photo.then(function(res) {
+                    var d_url = fbres.data.url;
+                                pro.then(function (fbres) {
+                if(!fbres || fbres.error) {
+                    console.log(!res ? 'error occurred' : res.error);
+                    return;
+                }
+                let photo =  fbres.data[0];
+                res.json({
+                "speech": photo,
+                "displayText":photo,
+                "data": { "url": photo },
+                "contextOut": [],
+                "source": "fb"
+                });
+            });
+        });
     }
 }
 
