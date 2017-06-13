@@ -9,7 +9,7 @@ const FB_APP_ID = process.env.FB_APP_ID;
 const FB_APP_SECRET = process.env.FB_APP_SECRET;
 const FB_PAGE_ID = process.env.FB_PAGE_ID;
 
-var fb = new FB.Facebook({version: 'v2.4'});
+var fb = new FB.Facebook({version: 'v2.4', Promise: require('bluebird')});
 
 module.exports = class TelegramBot {
 
@@ -227,14 +227,8 @@ module.exports = class TelegramBot {
         let result = data.result;
         let action = result.action;
 
-        var offset = parseInt(Math.random() * 100);
-        fb.api(FB_PAGE_ID+"/posts?limit=1&offset="+offset, function (fbres) {
-            if(!fbres || fbres.error) {
-                console.log(!res ? 'error occurred' : res.error);
-                return;
-            }
-            let post =  fbres.data[0];
-            console.log('Post Id: ' + post.id);
+        pro = getFBRandomPost();
+        pro.then(function (post) {
             res.json({
             "speech": post.message,
             "displayText": post.message,
@@ -243,6 +237,19 @@ module.exports = class TelegramBot {
             "source": "fb"
             });
         });
-    }    
+            
+    }
+    getFBRandomPost() {
+        var offset = parseInt(Math.random() * 100);
+        pro = fb.api(FB_PAGE_ID+"/albums?limit=1&offset="+offset, function (fbres) {
+            if(!fbres || fbres.error) {
+                console.log(!res ? 'error occurred' : res.error);
+                return;
+            }
+            let post =  fbres.data[0];
+            return post;
+        });
+        return pro;
+    }
 }
 
