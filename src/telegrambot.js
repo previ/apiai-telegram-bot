@@ -228,7 +228,7 @@ module.exports = class TelegramBot {
         let action = result.action;
         console.log("action: " + action);
         if(action == "show_fb_post") {
-            pro = getFBRandomPost();
+            var pro = getFBRandomPost();
             pro.then(function (fbres) {
                 if(!fbres || fbres.error) {
                     console.log(!res ? 'error occurred' : res.error);
@@ -250,7 +250,7 @@ module.exports = class TelegramBot {
     getFBRandomPost() {
         console.log("random fb post");
         var offset = parseInt(Math.random() * 100) + 1;
-        pro = fb.api(FB_PAGE_ID+"/posts?limit=1&offset="+offset);
+        var pro = fb.api(FB_PAGE_ID+"/posts?limit=1&offset="+offset);
         return pro;
     }
     sendFBRandomPhoto(res) {
