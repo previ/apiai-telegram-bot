@@ -235,11 +235,11 @@ module.exports = class TelegramBot {
                 }
                 let post =  fbres.data[0];
                 res.json({
-                "speech": post.message,
-                "displayText": post.message,
-                "data": {},
-                "contextOut": [],
-                "source": "fb"
+                    "speech": post.message,
+                    "displayText": post.message,
+                    "data": {},
+                    "contextOut": [],
+                    "source": "fb"
                 });
             });
         } else if(action == "show_fb_photo") {
@@ -247,11 +247,13 @@ module.exports = class TelegramBot {
         }
     }
     getFBRandomPost() {
+        console.log("random fb post");
         var offset = parseInt(Math.random() * 100) + 1;
         pro = fb.api(FB_PAGE_ID+"/posts?limit=1&offset="+offset);
         return pro;
     }
     sendFBRandomPhoto(res) {
+        console.log("random fb photo");
         var offset = parseInt(Math.random() * 2) + 1;
         album = fb.api(FB_PAGE_ID+"/albums?limit=1&offset="+offset);
         album.then(function (res) {
