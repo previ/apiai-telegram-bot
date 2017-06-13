@@ -228,27 +228,26 @@ module.exports = class TelegramBot {
         let action = result.action;
 
         pro = getFBRandomPost();
-        pro.then(function (post) {
-            res.json({
-            "speech": post.message,
-            "displayText": post.message,
-            "data": {},
-            "contextOut": [],
-            "source": "fb"
-            });
+        pro.then(function (fbres) {
+                    if(!fbres || fbres.error) {
+                        console.log(!res ? 'error occurred' : res.error);
+                        return;
+                    }
+                    let post =  fbres.data[0];
+                    return post;
+                res.json({
+                "speech": post.message,
+                "displayText": post.message,
+                "data": {},
+                "contextOut": [],
+                "source": "fb"
+                });
         });
             
     }
     getFBRandomPost() {
         var offset = parseInt(Math.random() * 100);
-        pro = fb.api(FB_PAGE_ID+"/albums?limit=1&offset="+offset, function (fbres) {
-            if(!fbres || fbres.error) {
-                console.log(!res ? 'error occurred' : res.error);
-                return;
-            }
-            let post =  fbres.data[0];
-            return post;
-        });
+        pro = fb.api(FB_PAGE_ID+"/albums?limit=1&offset="+offset);
         return pro;
     }
 }
