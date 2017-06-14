@@ -229,9 +229,7 @@ module.exports = class TelegramBot {
         console.log("action: " + action);
         if(action == "show_fb_post") {
             console.log("random fb post");
-            var pro = fb.api(FB_PAGE_ID+"/posts?limit=1&offset="+offset);
-            console.log("random fb post: " + pro);
-            pro.then(function (fbres) {
+            fb.api(FB_PAGE_ID+"/posts?limit=1&offset="+offset, function(fbres){
                 if(!fbres || fbres.error) {
                     console.log(!res ? 'error occurred' : res.error);
                     return;
@@ -245,9 +243,26 @@ module.exports = class TelegramBot {
                     "source": "fb"
                 });
             });
-        }/* else if(action == "show_fb_photo") {
-            sendFBRandomPhoto(res);
-        }*/
+        } else if(action == "show_fb_photo") {
+            var offset = parseInt(Math.random() * 2) + 1;
+            fb.api(FB_PAGE_ID+"/albums?limit=1&offset="+offset, function(fbres) {                
+                var d_album = fbres.data[0];
+                var offset = parseInt(Math.random() * 20) + 1;
+                fb.api("/" + d_album.id + "/photos?limit=1&offset="+offset, function(fbres) {
+                    var d_photo = fbres.data[0];
+                    fb.api("/" + d_photo.id + "/picture", function(fbres) {
+                        var d_url = fbres.data.url;
+                        res.json({
+                            "speech": d_url,
+                            "displayText":d_url,
+                            "data": { "url": d_url },
+                            "contextOut": [],
+                            "source": "fb"
+                        });
+                    });
+                });
+            });
+        }
     }
     getFBRandomPost() {
         console.log("random fb post");
