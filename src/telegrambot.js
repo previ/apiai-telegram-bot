@@ -243,9 +243,9 @@ module.exports = class TelegramBot {
                     "source": "fb"
                 });
             });
-        } else if(action == "show_fb_photo") {
+        }/* else if(action == "show_fb_photo") {
             sendFBRandomPhoto(res);
-        }
+        }*/
     }
     getFBRandomPost() {
         console.log("random fb post");
@@ -253,7 +253,7 @@ module.exports = class TelegramBot {
         var pro = fb.api(FB_PAGE_ID+"/posts?limit=1&offset="+offset);
         return pro;
     }
-    sendFBRandomPhoto(res) {
+    /*sendFBRandomPhoto(res) {
         console.log("random fb photo");
         var offset = parseInt(Math.random() * 2) + 1;
         album = fb.api(FB_PAGE_ID+"/albums?limit=1&offset="+offset);
@@ -276,6 +276,6 @@ module.exports = class TelegramBot {
                 });
             });
         });
-    }
+    }*/
 }
 
