@@ -230,6 +230,7 @@ module.exports = class TelegramBot {
         if(action == "show_fb_post") {
             console.log("random fb post");
             var pro = getFBRandomPost();
+            console.log("random fb post: " + pro);
             pro.then(function (fbres) {
                 if(!fbres || fbres.error) {
                     console.log(!res ? 'error occurred' : res.error);
