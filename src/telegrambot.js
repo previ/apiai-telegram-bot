@@ -245,10 +245,10 @@ module.exports = class TelegramBot {
                 });
             });
         } else if(action == "show_fb_photo") {
-            var offset = parseInt(Math.random() * 2) + 1;
+            var offset = parseInt(Math.random() * 2);
             fb.api(FB_PAGE_ID+"/albums?limit=1&offset="+offset, function(fbres) {                
                 var d_album = fbres.data[0];
-                var offset = parseInt(Math.random() * 20) + 1;
+                var offset = parseInt(Math.random() * 20);
                 console.log("album.id: " + d_album.id);
                 fb.api(d_album.id + "/photos?limit=1&offset="+offset, function(fbres) {
                     var d_photo = fbres.data[0];
