@@ -248,10 +248,10 @@ module.exports = class TelegramBot {
             var offset = parseInt(Math.random() * 2);
             fb.api(FB_PAGE_ID+"/albums?limit=1&offset="+offset, function(fbres) {                
                 var d_album = fbres.data[0];
-                var offset = parseInt(Math.random() * 20);
                 console.log("album.id: " + d_album.id);
-                fb.api(d_album.id + "/photos?limit=1&offset="+offset, function(fbres) {
-                    var d_photo = fbres.data[0];
+                fb.api(d_album.id + "/photos?limit=100", function(fbres) {
+                    var offset = parseInt(Math.random() * fbres.data.length);
+                    var d_photo = fbres.data[offset];
                     console.log("d_photo.id: " + d_photo.id);
                     fb.api(d_photo.id + "/picture?redirect=false", function(fbres) {
                         if(!fbres || fbres.error) {
