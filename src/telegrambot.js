@@ -258,7 +258,7 @@ module.exports = class TelegramBot {
                             console.log(!fbres ? 'error occurred' : fbres.error);
                             return;
                         }                        
-                        console.log("d_url: " + fbres.data);
+                        console.log("d_url: " + fbres);
                         var d_url = fbres.data.url;
                         res.json({
                             "speech": d_url,
