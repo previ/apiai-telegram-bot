@@ -263,7 +263,7 @@ module.exports = class TelegramBot {
                         res.json({
                             //"speech": d_url,
                             //"displayText":d_url,
-                            "data": { "url": d_url },
+                            "data": { "photo": d_url, "caption": "uela raga" },
                             "contextOut": [],
                             "source": "fb"
                         });
