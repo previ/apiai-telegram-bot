@@ -254,8 +254,8 @@ module.exports = class TelegramBot {
                     var d_photo = fbres.data[0];
                     console.log("d_photo.id: " + d_photo.id);
                     fb.api(d_photo.id + "/picture", function(fbres) {
-                        var d_url = fbres.url;
-                        console.log("d_url: " + d_url);
+                        var d_url = fbres.data.url;
+                        console.log("d_url: " + JSON.stringify(fbres));
                         res.json({
                             "speech": d_url,
                             "displayText":d_url,
