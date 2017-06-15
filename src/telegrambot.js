@@ -231,7 +231,7 @@ module.exports = class TelegramBot {
             console.log("random fb post");
             fb.api(FB_PAGE_ID+"/posts?limit=1&offset="+offset, function(fbres){
                 if(!fbres || fbres.error) {
-                    console.log(!res ? 'error occurred' : res.error);
+                    console.log(!fbres ? 'error occurred' : fbres.error);
                     return;
                 }
                 let post =  fbres.data[0];
