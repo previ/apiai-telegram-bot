@@ -253,12 +253,12 @@ module.exports = class TelegramBot {
                 fb.api(d_album.id + "/photos?limit=1&offset="+offset, function(fbres) {
                     var d_photo = fbres.data[0];
                     console.log("d_photo.id: " + d_photo.id);
-                    fb.api(d_photo.id + "/picture", function(fbres) {
+                    fb.api(d_photo.id + "/picture?redirect=false", function(fbres) {
                         if(!fbres || fbres.error) {
                             console.log(!fbres ? 'error occurred' : fbres.error);
                             return;
                         }                        
-                        console.log("d_url: " + fbres);
+                        console.log("d_url: " + fbres.data.url);
                         var d_url = fbres.data.url;
                         res.json({
                             "speech": d_url,
