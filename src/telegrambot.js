@@ -265,8 +265,8 @@ module.exports = class TelegramBot {
                         console.log("d_url: " + fbres.data.url);
                         var d_url = fbres.data.url;
                         res.json({
-                            //"speech": d_url,
-                            //"displayText":d_url,
+                            "speech": "fotina",
+                            "displayText": "mira la fotina",
                             "data": { "photo": d_url, "caption": "uela raga" },
                             "contextOut": [],
                             "source": "fb"
