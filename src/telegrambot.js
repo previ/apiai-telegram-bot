@@ -141,7 +141,7 @@ module.exports = class TelegramBot {
                         let responseData = response.result.fulfillment.data;
                         
                         if(response.result.action=="joke_on_sender") {
-                          this.reply({chat_id:chatId, text: this.jokeOnSender(msg)});
+                          this.reply({chat_id:chatId, text: this.jokeOnSender(msg.from)});
                           TelegramBot.createResponse(res, 200, 'Message processed');                          
                         } else if (TelegramBot.isDefined(responseData) && 
                             TelegramBot.isDefined(responseData.telegram)) {
@@ -286,11 +286,13 @@ module.exports = class TelegramBot {
         }
     }
     jokeOnSender(from) {
+        console.log("Sender: " + from.first_name+from.last_name);
         var joke = "";
         var jokes = user_jokes[from.first_name+from.last_name];
         if (jokes) {
             joke = jokes[Math.random(parseInt(Math.random() * jokes.length))];
         }
+        console.log("Joke: " + joke);
         return joke;
     }
 }
