@@ -295,7 +295,7 @@ module.exports = class TelegramBot {
         var joke = "";
         var jokes = user_jokes[from.first_name+from.last_name];
         if (jokes) {
-            joke = jokes[Math.random(parseInt(Math.random() * jokes.length)]
+            joke = jokes[Math.random(parseInt(Math.random() * jokes.length))];
         }
         return joke;
     }
