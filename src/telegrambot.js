@@ -267,7 +267,7 @@ module.exports = class TelegramBot {
                         res.json({
                             "speech": "fotina",
                             "displayText": "mira la fotina",
-                            "data": { "photo": d_url, "caption": "uela raga" },
+                            "data": { "telegram": {"photo": d_url, "caption": "uela raga"} },
                             "contextOut": [],
                             "source": "fb"
                         });
