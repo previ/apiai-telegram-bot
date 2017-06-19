@@ -9,11 +9,22 @@ const FB_APP_ID = process.env.FB_APP_ID;
 const FB_APP_SECRET = process.env.FB_APP_SECRET;
 const FB_PAGE_ID = process.env.FB_PAGE_ID;
 
-let user_jokes =  { "RobertoPrevitera": [" chi sei, il parcheggiatore? Abusivo magari?", " anche tu nato in periferia di New Delhi? Si vede."],
-                    "PaoloLiberali": [" è martedì, sai cosa devi fare.", " tu si che hai capito tutto...sei un 'povero ricco', vero? Top!"],
-                    "IvanLuzzi": [" sei troppo povero per chattare con me."],
-                    "GiuseppeDiMilia": [" sei invitato al Twiga Malindi con gli altri, tranquillo: offre Paolo"],
-                    "MircoSadocco": [" ok, allora stasera tutti in terrazza al Twiga di Gallarate!"] };
+let user_jokes =  { "RobertoPrevitera": [" chi sei {0}, il parcheggiatore? Abusivo magari?", "{0}, anche tu nato in periferia di New Delhi? Si vede."],
+                    "PaoloLiberali": ["è martedì {0}, sai cosa devi fare.", "tu si {0} che hai capito tutto...sei un 'povero ricco', vero? Top!"],
+                    "IvanLuzzi": ["caro {0} sei troppo povero per chattare con me."],
+                    "GiuseppeDiMilia": ["Bella li {0}, sei invitato al Twiga Malindi con gli altri, tranquillo: offre Paolo"],
+                    "MircoSadocco": ["ok {0}, allora stasera tutti in terrazza al Twiga di Gallarate!"] };
+if (!String.prototype.format) {
+  String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, number) { 
+      return typeof args[number] != 'undefined'
+        ? args[number]
+        : match
+      ;
+    });
+  };
+}
 
 var fb = new FB.Facebook({version: 'v2.9', Promise: require('bluebird')});
 
@@ -291,6 +302,7 @@ module.exports = class TelegramBot {
         var jokes = user_jokes[from.first_name+from.last_name];
         if (jokes) {
             joke = jokes[parseInt(Math.random() * jokes.length)];
+            joke = joke.format(from.first_name);
         }
         console.log("Joke: " + joke);
         return joke;
