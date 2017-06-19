@@ -134,9 +134,8 @@ module.exports = class TelegramBot {
                         let responseText = response.result.fulfillment.speech;
                         let responseData = response.result.fulfillment.data;
 
-                        console.log('response.result.fulfillment: ' + JSON.stringify(response.result.fulfillment));
-
-                        if (TelegramBot.isDefined(responseData) && TelegramBot.isDefined(responseData.telegram)) {
+                        if (TelegramBot.isDefined(responseData) && 
+                            TelegramBot.isDefined(responseData.telegram)) {
 
                             console.log('Response as formatted message');
 
@@ -181,8 +180,12 @@ module.exports = class TelegramBot {
     }
 
     reply(msg) {
+        var telegram_method = "sendMessage";
+        if(msg.photo) {
+            telegram_method = "sendPhoto";
+        }
         // https://core.telegram.org/bots/api#sendmessage
-        request.post(this._telegramApiUrl + '/sendMessage', {
+        request.post(this._telegramApiUrl + '/' + telegram_method, {
             json: msg
         }, function (error, response, body) {
             if (error) {
