@@ -108,7 +108,7 @@ module.exports = class TelegramBot {
             console.log("body", req.body);
         }
 
-        console.log("processMessage: ", req.body);
+        //console.log("processMessage: ", req.body);
 
         let updateObject = req.body;
 
@@ -139,8 +139,11 @@ module.exports = class TelegramBot {
                     if (TelegramBot.isDefined(response.result)) {
                         let responseText = response.result.fulfillment.speech;
                         let responseData = response.result.fulfillment.data;
-
-                        if (TelegramBot.isDefined(responseData) && 
+                        
+                        if(response.result.action=="joke_on_sender") {
+                          this.reply({chat_id:chatId, text: jokeOnSender(msg)});
+                          TelegramBot.createResponse(res, 200, 'Message processed');                          
+                        } else if (TelegramBot.isDefined(responseData) && 
                             TelegramBot.isDefined(responseData.telegram)) {
 
                             console.log('Response as formatted message');
@@ -280,18 +283,9 @@ module.exports = class TelegramBot {
                     });
                 });
             });
-        } else if(action == "joke_on_sender") {
-          var joke = jokesOnSender({first_name:"Paolo", last_name:"Liberali"})
-            res.json({
-                "speech": joke,
-                "displayText": joke,
-                "data": { "telegram": {"text": joke} },
-                "contextOut": [],
-                "source": "internal"
-            });
         }
     }
-    jokesOnSender(from) {
+    jokeOnSender(from) {
         var joke = "";
         var jokes = user_jokes[from.first_name+from.last_name];
         if (jokes) {
