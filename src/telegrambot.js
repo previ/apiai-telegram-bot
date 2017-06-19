@@ -9,7 +9,13 @@ const FB_APP_ID = process.env.FB_APP_ID;
 const FB_APP_SECRET = process.env.FB_APP_SECRET;
 const FB_PAGE_ID = process.env.FB_PAGE_ID;
 
-var fb = new FB.Facebook({version: 'v2.4', Promise: require('bluebird')});
+let user_jokes =  { "RobertoPrevitera": [" chi sei, il parcheggiatore? Abusivo magari?", " anche tu nato in periferia di New Delhi? Si vede."],
+                    "PaoloLiberali": [" è martedì, sai cosa devi fare.", " tu si che hai capito tutto...sei un 'povero ricco', vero? Top!"],
+                    "IvanLuzzi": [" sei troppo povero per chattare con me."],
+                    "GiuseppeDiMilia": [" sei invitato al Twiga Malindi con gli altri, tranquillo: offre Paolo"],
+                    "MircoSadocco": [" ok, allora stasera tutti in terrazza al Twiga di Gallarate!"] };
+
+var fb = new FB.Facebook({version: 'v2.9', Promise: require('bluebird')});
 
 module.exports = class TelegramBot {
 
@@ -226,11 +232,11 @@ module.exports = class TelegramBot {
     processApiAiMessage(req, res) {
         if (this._botConfig.devConfig) {
             console.log("body", req.body);
-        }       
+        }
         let data = req.body;
         let result = data.result;
         let action = result.action;
-        console.log("action: " + action);
+        console.log("data: " + data);
         if(action == "show_fb_post") {
             console.log("random fb post");
             var offset = parseInt(Math.random() * 100) + 1;
@@ -266,45 +272,32 @@ module.exports = class TelegramBot {
                         var d_url = fbres.data.url;
                         res.json({
                             "speech": "fotina",
-                            "displayText": "mira la fotina",
-                            "data": { "telegram": {"photo": d_url, "caption": "uela raga"} },
+                            "displayText": "fotina",
+                            "data": { "telegram": {"photo": d_url, "caption": d_photo.name} },
                             "contextOut": [],
                             "source": "fb"
                         });
                     });
                 });
             });
+        } else if(action == "joke_on_sender") {
+          var joke = jokesOnSender({first_name:"Paolo", last_name:"Liberali"})
+            res.json({
+                "speech": joke,
+                "displayText": joke,
+                "data": { "telegram": {"text": joke} },
+                "contextOut": [],
+                "source": "internal"
+            });
         }
     }
-    /*getFBRandomPost() {
-        console.log("random fb post");
-        var offset = parseInt(Math.random() * 100) + 1;
-        var pro = fb.api(FB_PAGE_ID+"/posts?limit=1&offset="+offset);
-        return pro;
+    jokesOnSender(from) {
+        var joke = "";
+        var jokes = user_jokes[from.first_name+from.last_name];
+        if (jokes) {
+            joke = jokes[Math.random(parseInt(Math.random() * jokes.length)]
+        }
+        return joke;
     }
-    sendFBRandomPhoto(res) {
-        console.log("random fb photo");
-        var offset = parseInt(Math.random() * 2) + 1;
-        album = fb.api(FB_PAGE_ID+"/albums?limit=1&offset="+offset);
-        album.then(function (res) {
-            var d_album = fbres.data[0];
-            var offset = parseInt(Math.random() * 20) + 1;
-            var photos = fb.api("/" + d_album.id + "/photos?limit=1&offset="+offset);
-            photos.then(function(res) {
-                var d_photo = fbres.data[0];
-                var photo = fb.api("/" + d_photo.id + "/picture");
-                photo.then(function(res) {
-                    var d_url = fbres.data.url;
-                    res.json({
-                        "speech": d_url,
-                        "displayText":d_url,
-                        "data": { "url": d_url },
-                        "contextOut": [],
-                        "source": "fb"
-                    });
-                });
-            });
-        });
-    }*/
 }
 
