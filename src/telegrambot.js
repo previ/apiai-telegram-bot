@@ -102,6 +102,8 @@ module.exports = class TelegramBot {
             console.log("body", req.body);
         }
 
+        console.log("processMessage: ", req.body);
+
         let updateObject = req.body;
 
         if (updateObject && updateObject.message) {
@@ -221,8 +223,7 @@ module.exports = class TelegramBot {
     processApiAiMessage(req, res) {
         if (this._botConfig.devConfig) {
             console.log("body", req.body);
-        }
-
+        }       
         let data = req.body;
         let result = data.result;
         let action = result.action;
@@ -272,13 +273,13 @@ module.exports = class TelegramBot {
             });
         }
     }
-    getFBRandomPost() {
+    /*getFBRandomPost() {
         console.log("random fb post");
         var offset = parseInt(Math.random() * 100) + 1;
         var pro = fb.api(FB_PAGE_ID+"/posts?limit=1&offset="+offset);
         return pro;
     }
-    /*sendFBRandomPhoto(res) {
+    sendFBRandomPhoto(res) {
         console.log("random fb photo");
         var offset = parseInt(Math.random() * 2) + 1;
         album = fb.api(FB_PAGE_ID+"/albums?limit=1&offset="+offset);
