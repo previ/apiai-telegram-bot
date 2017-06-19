@@ -141,7 +141,7 @@ module.exports = class TelegramBot {
                         let responseData = response.result.fulfillment.data;
                         
                         if(response.result.action=="joke_on_sender") {
-                          this.reply({chat_id:chatId, text: jokeOnSender(msg)});
+                          this.reply({chat_id:chatId, text: this.jokeOnSender(msg)});
                           TelegramBot.createResponse(res, 200, 'Message processed');                          
                         } else if (TelegramBot.isDefined(responseData) && 
                             TelegramBot.isDefined(responseData.telegram)) {
