@@ -236,7 +236,7 @@ module.exports = class TelegramBot {
         let data = req.body;
         let result = data.result;
         let action = result.action;
-        console.log("data: " + data);
+        console.log("req.body: " + req.body);
         if(action == "show_fb_post") {
             console.log("random fb post");
             var offset = parseInt(Math.random() * 100) + 1;
